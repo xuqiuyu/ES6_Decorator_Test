@@ -1,18 +1,19 @@
+var _class;
 
 const autobind = target => {
-    const propertyNames = Object.getOwnPropertyNames(target.prototype);
+    const _prototype = target.prototype;
     const instance = new target();
-    propertyNames.forEach(item => {
-        if (item !== 'constructor' && typeof target.prototype[item] === 'function') {
-            target.prototype[item] = target.prototype[item].bind(instance);
+    Object.getOwnPropertyNames(target.prototype).forEach(item => {
+        if (item !== 'constructor' && typeof _prototype[item] === 'function') {
+            _prototype[item] = _prototype[item].bind(instance);
         }
     });
 };
 
-// @autobind
-let Demo = class Demo {
+let Demo = autobind(_class = class Demo {
     constructor() {
         this.x = 111;
+        this.y = 222;
     }
 
     test() {
@@ -20,13 +21,20 @@ let Demo = class Demo {
         console.log(this.x);
     }
 
-};
+    test2() {
+        console.log(this.y);
+    }
+
+}) || _class;
 
 // Demo.test();
 // new Demo().test();
+
 
 const ut = fn => {
     fn();
 };
 
 ut(new Demo().test);
+
+ut(new Demo().test2);
