@@ -1,2 +1,2 @@
 ## ES6 decorator test
-try to use decorator to implement Class instance function autobind
+try to use decorator to implement Class instance function autobind
